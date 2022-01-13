@@ -8,7 +8,7 @@
  * @license   Open Source Social Network License (OSSN LICENSE)  http://www.opensource-socialnetwork.org/licence
  * @link      https://www.opensource-socialnetwork.org/
  */
-class ChaudoudouxBase extends OssnSession {
+class ChaudoudouxBase extends ChaudoudouxSession {
 		/**
 		 * Get guid.
 		 *

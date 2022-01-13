@@ -85,4 +85,20 @@ function chaudoudoux_autoload_classes($name = '') {
                         require_once($Chaudoudoux->classes[$name]);
         }
 }
+
+/**
+ * Force Object
+ * Sometimes php can't get object class ,
+ * so we need to make sure that object have class name
+ *
+ * @param object $object Object
+ *
+ * @return object
+ */
+function forceObject(&$object) {
+        if(!is_object($object) && gettype($object) == 'object')
+                        return ($object = unserialize(serialize($object)));
+        return $object;
+}
+
 spl_autoload_register('chaudoudoux_autoload_classes');

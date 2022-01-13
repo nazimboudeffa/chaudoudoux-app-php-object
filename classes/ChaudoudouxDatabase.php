@@ -30,23 +30,23 @@
  *	),
  * ));
  */
-class ChaudoudouxDatabase extends OssnBase {
+class ChaudoudouxDatabase extends ChaudoudouxBase {
 		/**
 		 * Initialize the database
 		 *
 		 * return void
 		 */
 		public function __construct() {
-				global $Ossn;
+				global $Chaudoudoux;
 				//Avoid the multiple db connections #1001
-				if(!isset($Ossn->dbLINK) || isset($Ossn->dbLINK) && $Ossn->dbLINK == false) {
-						$Ossn->dbLINK = $this->Connect();
+				if(!isset($Chaudoudoux->dbLINK) || isset($Chaudoudoux->dbLINK) && $Chaudoudoux->dbLINK == false) {
+						$Chaudoudoux->dbLINK = $this->Connect();
 				}
 				//set the sql mode and avoid setting again and again for each request
-				if(!isset($Ossn->setSQLMode)) {
+				if(!isset($Chaudoudoux->setSQLMode)) {
 						$this->statement("SET SESSION sql_mode=(SELECT REPLACE(@@SESSION.sql_mode, 'ONLY_FULL_GROUP_BY', ''));");
 						$this->execute();
-						$Ossn->setSQLMode = true;
+						$Chaudoudoux->setSQLMode = true;
 				}
 		}
 		/**
@@ -55,19 +55,19 @@ class ChaudoudouxDatabase extends OssnBase {
 		 * @return boolean
 		 */
 		public function Connect() {
-				$settings = ossn_database_settings();
+				$settings = chaudoudoux_database_settings();
 				$options  = array(
 						PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 						PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
 						PDO::ATTR_EMULATE_PREPARES => false,
 				);
-				$conector = "mysql:host={$settings->host};dbname={$settings->database};port={$settings->port};charset=utf8mb4";
+				$conector = "mysql:host={$settings->host};dbname={$settings->database};port={$settings->port};charset=utf8";
 				try {
 						$connect = new PDO($conector, $settings->user, $settings->password, $options);
 						return $connect;
 				}
 				catch(PDOException $ex) {
-						throw new OssnDatabaseException($ex->getMessage());
+						throw new ChaudoudouxDatabaseException($ex->getMessage());
 				}
 		}
 		/**
@@ -133,8 +133,8 @@ class ChaudoudouxDatabase extends OssnBase {
 		 * @return boolean
 		 */
 		public function execute($values = array()) {
-				global $Ossn;
-				$this->database = $Ossn->dbLINK;
+				global $Chaudoudoux;
+				$this->database = $Chaudoudoux->dbLINK;
 				if(isset($this->query) && !empty($this->query)) {
 						try {
 								if(empty($values)) {
@@ -145,7 +145,7 @@ class ChaudoudouxDatabase extends OssnBase {
 								}
 						}
 						catch(PDOException $ex) {
-								throw new OssnDatabaseException("{$ex->getMessage()} \n {$this->query} ");
+								throw new ChaudoudouxDatabaseException("{$ex->getMessage()} \n {$this->query} ");
 						}
 						unset($this->query);
 						//Using mysqli_close() isn't usually necessary, as non-persistent open links are automatically closed at the end of the script's execution.

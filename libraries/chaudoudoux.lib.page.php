@@ -7,6 +7,35 @@
 function chaudoudoux_page_metatags() {
         chaudoudoux_extend_view('chaudoudoux/site/head', 'chaudoudoux_view_metatags');
 }
+
+/**
+ * Register a page handler;
+ * @params: $handler = page;
+ * @params: $function = function which handles page;
+ * @param string $handler
+ * @param string $function
+ *
+ * @last edit: $arsalanshah
+ * @Reason: Initial;
+ */
+function chaudoudoux_register_page($handler, $function) {
+        global $Chaudoudoux;
+        $pages = $Chaudoudoux->page[$handler] = $function;
+        return $pages;
+}
+
+/**
+* Unregister a page from syste,
+* @param (string) $handler Page handler name;
+*
+* @last edit: $arsalanshah
+* @return void;
+*/
+function chaudoudoux_unregister_page($handler) {
+        global $Chaudoudoux;
+        unset($Chaudoudoux->page[$handler]);
+}
+
 /**
  * Output a page.
  *

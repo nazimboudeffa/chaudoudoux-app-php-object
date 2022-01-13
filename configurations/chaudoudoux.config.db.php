@@ -23,4 +23,4 @@ $Chaudoudoux->user = 'root';
 $Chaudoudoux->password = '';
 
 // replace <<dbname>> with your database name;
-$Chaudoudoux->database = 'chaudoudoux-app';
+$Chaudoudoux->database = 'chaudoudoux-app-php-object';

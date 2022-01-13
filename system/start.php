@@ -34,4 +34,4 @@ foreach ($Chaudoudoux->libraries as $lib) {
     }
 }
 
-chaudoudoux_trigger_callback('ossn', 'init');
+chaudoudoux_trigger_callback('chaudoudoux', 'init');

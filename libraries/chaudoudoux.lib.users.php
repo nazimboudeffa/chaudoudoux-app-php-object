@@ -24,20 +24,20 @@ function ossn_user() {
  *
  * @return bool
  */
-function ossn_users() {
-		ossn_register_page('uservalidate', 'ossn_uservalidate_pagehandler');
+function chaudoudoux_users() {
+		chaudoudoux_register_page('uservalidate', 'chaudoudoux_uservalidate_pagehandler');
 		
 		/**
 		 * Logout outuser if user didn't exists
 		 */
-		if(ossn_isLoggedin()) {
-				$user = ossn_user_by_guid(ossn_loggedin_user()->guid);
+		if(chaudoudoux_isLoggedin()) {
+				$user = chaudoudoux_user_by_guid(chaudoudoux_loggedin_user()->guid);
 				if(!$user) {
 						ossn_logout();
 						redirect();
 				}
 				//register menu item for logout, in topbar dropdown menu
-				ossn_register_menu_item('topbar_dropdown', array(
+				chaudoudoux_register_menu_item('topbar_dropdown', array(
 						'name' => 'logout',
 						'text' => ossn_print('logout'),
 						'href' => ossn_site_url('action/user/logout'),
@@ -52,9 +52,9 @@ function ossn_users() {
  *
  * @return bool
  */
-function ossn_isLoggedin() {
-		$user = forceObject($_SESSION['OSSN_USER']);
-		if(isset($user) && is_object($user) && $user instanceof OssnUser) {
+function chaudoudoux_isLoggedin() {
+		$user = forceObject($_SESSION['CHAUDOUDOUX_USER']);
+		if(isset($user) && is_object($user) && $user instanceof ChaudoudouxUser) {
 				return true;
 		}
 		return false;

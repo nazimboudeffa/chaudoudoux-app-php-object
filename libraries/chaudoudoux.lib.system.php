@@ -1,5 +1,78 @@
 <?php
 
+/*
+ * Load site settings , so the setting should not load agian and again
+ */
+global $Chaudoudoux;
+$settings           = new ChaudoudouxSite;
+$Chaudoudoux->siteSettings = $settings->getAllSettings();
+
+/**
+ * Get database settings
+ *
+ * @return object
+ */
+function chaudoudoux_database_settings() {
+	global $Chaudoudoux;
+	if (!isset($Chaudoudoux->port)) {
+		$Chaudoudoux->port = false;
+	}
+	$defaults = array(
+		'host' => $Chaudoudoux->host,
+		'port' => $Chaudoudoux->port,
+		'user' => $Chaudoudoux->user,
+		'password' => $Chaudoudoux->password,
+		'database' => $Chaudoudoux->database
+	);
+	return arrayObject($defaults);
+}
+
+/**
+ * Add a hook to system, hooks are usefull for callback returns
+ *
+ * @param string $hook The name of the hook
+ * @param string $type The type of the hook
+ * @param callable $callback The name of a valid function or an array with object and method
+ * @param int $priority The priority - 500 is default, lower numbers called first
+ *
+ * @return bool
+ *
+ * This part is contain code from project called Elgg 
+ * 
+ * See licenses/elgg/LICENSE.txt
+ */
+function chaudoudoux_add_hook($hook, $type, $callback, $priority = 200) {
+	global $Chaudoudoux;
+	
+	if (empty($hook) || empty($type)) {
+		return false;
+	}
+	
+	if (!isset($Chaudoudoux->hooks)) {
+		$Chaudoudoux->hooks = array();
+	}
+	if (!isset($Chaudoudoux->hooks[$hook])) {
+		$Chaudoudoux->hooks[$hook] = array();
+	}
+	if (!isset($Chaudoudoux->hooks[$hook][$type])) {
+		$Chaudoudoux->hooks[$hook][$type] = array();
+	}
+	
+	if (!is_callable($callback, true)) {
+		return false;
+	}
+	
+	$priority = max((int) $priority, 0);
+	
+	while (isset($Chaudoudoux->hooks[$hook][$type][$priority])) {
+		$priority++;
+	}
+	$Chaudoudoux->hooks[$hook][$type][$priority] = $callback;
+	ksort($Chaudoudoux->hooks[$hook][$type]);
+	return true;
+	
+}
+
 /**
  * Trigger a callback
  *
@@ -45,7 +118,6 @@ function chaudoudoux_trigger_callback($event, $type, $params = null) {
  */
  function chaudoudoux_register_callback($event, $type, $callback, $priority = 200) {
 	global $Chaudoudoux;
-	
 	if (empty($event) || empty($type)) {
 		return false;
 	}
@@ -122,11 +194,11 @@ function chaudoudoux_error_page() {
 	if (chaudoudoux_is_xhr()) {
 		header("HTTP/1.0 404 Not Found");
 	} else {
-		$title                  = ossn_print('page:error');
-		$contents['content']    = ossn_plugin_view('pages/contents/error');
+		$title                  = chaudoudoux_print('page:error');
+		$contents['content']    = chaudoudoux_plugin_view('pages/contents/error');
 		$contents['background'] = false;
-		$content                = ossn_set_page_layout('contents', $contents);
-		$data                   = ossn_view_page($title, $content);
+		$content                = chaudoudoux_set_page_layout('contents', $contents);
+		$data                   = chaudoudoux_view_page($title, $content);
 		echo $data;
 	}
 	exit;
@@ -180,6 +252,36 @@ function chaudoudoux_is_xhr() {
 	}
 	return false;
 }
+
+/**
+ * Ossn validate offset
+ *
+ * @return void
+ */
+function chaudoudoux_offset_validate() {
+	//pagination offset should be better protected #627
+	$offset = input('offset');
+	if (!ctype_digit($offset)) {
+		unset($_REQUEST['offset']);
+	}
+}
+
+/**
+ * Get site url
+ *
+ * @params $extend =>  Extned site url like http://site.com/my/extended/path
+ *
+ * @return string
+ */
+function chaudoudoux_site_url($extend = '', $action = false) {
+	global $Chaudoudoux;
+	$siteurl = "{$Chaudoudoux->url}{$extend}";
+	if ($action === true) {
+		$siteurl = ossn_add_tokens_to_url($siteurl);
+	}
+	return $siteurl;
+}
+
 chaudoudoux_errros();
 chaudoudoux_register_callback('chaudoudoux', 'init', 'chaudoudoux_offset_validate');
-chaudoudoux_register_callback('chaudoudoux', 'init', 'chaudoudoux_system');
+//chaudoudoux_register_callback('chaudoudoux', 'init', 'chaudoudoux_system');
