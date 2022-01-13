@@ -5,6 +5,27 @@ $VIEW = new stdClass;
 $VIEW->register = array();
 
 /**
+ * View a file
+ *
+ * @param string $file valid file name of php file without extension;
+ * @param array $params Options;
+ * @last edit: $arsalanshah
+ * @return mixed data
+ */
+function chaudoudoux_view($path = '', $params = array()) {
+    global $VIEW;
+    if (isset($path) && !empty($path)) {
+        //call hook in case to over ride the view
+        if (chaudoudoux_is_hook('halt', "view:{$path}")) {
+            return chaudoudoux_call_hook('halt', "view:{$path}", $params);
+        }
+        $path = chaudoudoux_route()->www . $path;
+        $file = chaudoudoux_include($path . '.php', $params);
+        return $file;
+    }
+}
+
+/**
  * Add a context to page
  *
  * @param string $context Name of context;
@@ -52,7 +73,7 @@ function chaudoudoux_fetch_extend_views($layout, $params = array()) {
             if (!is_callable($file)) {
                 $fetch[] = chaudoudoux_plugin_view($file, $params);
             } else {
-                $fetch[] = call_user_func($file, ossn_get_context(), $params, current_url());
+                $fetch[] = call_user_func($file, chaudoudoux_get_context(), $params, current_url());
             }
         }
         return implode('', $fetch);

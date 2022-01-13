@@ -236,7 +236,7 @@ function chaudoudoux_site_settings($setting) {
 	global $Chaudoudoux;
 	if (isset($Chaudoudoux->siteSettings->$setting)) {
 		//allow to override a settings
-		return chaudoudoux_call_hook('load:settings', $setting, false, $Chaudoudoux->siteSettings->$setting);
+		//return chaudoudoux_call_hook('load:settings', $setting, false, $Chaudoudoux->siteSettings->$setting);
 	}
 	return false;
 }
@@ -280,6 +280,18 @@ function chaudoudoux_site_url($extend = '', $action = false) {
 		$siteurl = ossn_add_tokens_to_url($siteurl);
 	}
 	return $siteurl;
+}
+
+/**
+ * Get data directory contaning user and system files
+ *
+ * @params $extend =>  Extned data directory path like /home/htdocs/userdata/my/extend/path
+ *
+ * @return string
+ */
+function chaudoudoux_get_userdata($extend = '') {
+	global $Chaudoudoux;
+	return "{$Chaudoudoux->userdata}{$extend}";
 }
 
 chaudoudoux_errros();

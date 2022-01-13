@@ -47,9 +47,10 @@ function chaudoudoux_initialize() {
 		*/
 
 		chaudoudoux_register_page('index', 'chaudoudoux_index_pagehandler');
-
+		
+		
+		chaudoudoux_register_page('home', 'chaudoudoux_user_pagehandler');
 		/*
-		ossn_register_page('home', 'ossn_user_pagehandler');
 		ossn_register_page('login', 'ossn_user_pagehandler');
 		ossn_register_page('registered', 'ossn_user_pagehandler');
 		ossn_register_page('syserror', 'ossn_system_error_pagehandler');
@@ -114,19 +115,19 @@ function ossn_system_error_pagehandler($pages) {
  *
  * @return mixed contents
  */
-function ossn_user_pagehandler($home, $handler) {
+function chaudoudoux_user_pagehandler($home, $handler) {
 		switch($handler) {
 				case 'home':
-						if(!ossn_isLoggedin()) {
+						if(!chaudoudoux_isLoggedin()) {
 								//Redirect User to login page if session expired from home page #929
 								redirect('login');
 						}
-						$title = ossn_print('news:feed');
+						$title = chaudoudoux_print('news:feed');
 						if(com_is_active('OssnWall')) {
-								$contents['content'] = ossn_plugin_view('wall/pages/wall');
+								$contents['content'] = chaudoudoux_plugin_view('wall/pages/wall');
 						}
-						$content = ossn_set_page_layout('newsfeed', $contents);
-						echo ossn_view_page($title, $content);
+						$content = chaudoudoux_set_page_layout('newsfeed', $contents);
+						echo chaudoudoux_view_page($title, $content);
 						break;
 				case 'resetlogin':
 						if(ossn_isLoggedin()) {
@@ -177,21 +178,21 @@ function ossn_user_pagehandler($home, $handler) {
  *
  * @return boolean|null
  */
-function ossn_index_pagehandler($index) {
-		if(ossn_isLoggedin()) {
+function chaudoudoux_index_pagehandler($index) {
+		if(chaudoudoux_isLoggedin()) {
 				redirect('home');
 		}
 		$page = $index[0];
 		if(empty($page)) {
-				$page = 'home';
+				$page = 'home'; 
 		}
 		switch($page) {
 				case 'home':
-						echo ossn_plugin_view('pages/index');
+						echo chaudoudoux_plugin_view('pages/index');
 						break;
 				
 				default:
-						ossn_error_page();
+						chaudoudoux_error_page();
 						break;
 						
 		}
