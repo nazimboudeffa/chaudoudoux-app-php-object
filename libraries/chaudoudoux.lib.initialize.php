@@ -74,16 +74,6 @@ function chaudoudoux_initialize() {
 }
 
 /**
- * Add left menu to newsfeed page
- *
- * @return menu
- */
-function newfeed_menu_handler($hook, $type, $return) {
-		$return[] = chaudoudoux_view_sections_menu('newsfeed');
-		return $return;
-}
-
-/**
  * System Errors
  * @pages:
  *       unknown,
@@ -199,27 +189,7 @@ function chaudoudoux_index_pagehandler($index) {
 						
 		}
 }
-/**
- * Ossn pow lnk args
- * 
- * @return array
- */
-function chaudoudoux_pow_lnk_args() {
-		$pw  = base64_decode(OSSN_POW);
-		$pow = ossn_string_decrypt($pw, 'ossn');
-		$pow = trim($pow);
-		
-		$lnk = base64_decode(OSSN_LNK);
-		$lnk = ossn_string_decrypt($lnk, 'ossn');
-		$lnk = trim($lnk);
-		
-		return array(
-				'name' => $pow,
-				'text' => chaudoudoux_print($pow),
-				'href' => $lnk,
-				'priority' => 1000,
-		);
-}
+
 /**
  * Loads system plugins before we load components.
  *
