@@ -39,10 +39,10 @@ function chaudoudoux_register_plugins_by_path($path) {
 								$fpath = substr($file, 0, -4);
 								$fpath = str_replace(array(
 										$name,
-										ossn_route()->www
+										chaudoudoux_route()->www
 								), '', $fpath);
 								
-								$Ossn->plugins[$plugin_type][$name] = $fpath;
+								$Chaudoudoux->plugins[$plugin_type][$name] = $fpath;
 						}
 				}
 		}

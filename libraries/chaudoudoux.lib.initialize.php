@@ -10,13 +10,13 @@
  */
 
 //register all available language
-/*
-$available_languages = ossn_get_available_languages();
+
+$available_languages = chaudoudoux_get_available_languages();
 foreach($available_languages as $language) {
-		ossn_register_language($language, ossn_route()->locale . "ossn.{$language}.php");
+		chaudoudoux_register_language($language, chaudoudoux_route()->locale . "chaudoudoux.{$language}.php");
 }
-*/
-//ossn_default_load_locales();
+
+chaudoudoux_default_load_locales();
 /**
  * Initialize the css library
  *
@@ -24,15 +24,16 @@ foreach($available_languages as $language) {
  */
 function chaudoudoux_initialize() {
 		$url = chaudoudoux_site_url();
-		/*
-		$icon = ossn_site_url('components/OssnWall/images/news-feed.png');
-		ossn_register_sections_menu('newsfeed', array(
+		
+		$icon = chaudoudoux_site_url('components/ChaudoudouxWall/images/news-feed.png');
+		chaudoudoux_register_sections_menu('newsfeed', array(
 				'name' => 'newsfeed',
-				'text' => ossn_print('news:feed'),
+				'text' => chaudoudoux_print('news:feed'),
 				'url' => "{$url}home",
 				'parent' => 'links',
 				'icon' => $icon
 		));
+		/*
 		ossn_extend_view('ossn/js/head', 'javascripts/head');
 		ossn_extend_view('ossn/admin/js/head', 'javascripts/head');
 		//actions
@@ -46,9 +47,7 @@ function chaudoudoux_initialize() {
 		ossn_register_action('resetlogin', ossn_route()->actions . 'user/resetlogin.php');
 		*/
 
-		chaudoudoux_register_page('index', 'chaudoudoux_index_pagehandler');
-		
-		
+		chaudoudoux_register_page('index', 'chaudoudoux_index_pagehandler');	
 		chaudoudoux_register_page('home', 'chaudoudoux_user_pagehandler');
 		/*
 		ossn_register_page('login', 'ossn_user_pagehandler');
@@ -56,19 +55,18 @@ function chaudoudoux_initialize() {
 		ossn_register_page('syserror', 'ossn_system_error_pagehandler');
 		
 		ossn_register_page('resetlogin', 'ossn_user_pagehandler');
-		
-		ossn_add_hook('newsfeed', "sidebar:left", 'newfeed_menu_handler');
-		
-		ossn_register_menu_item('footer', array(
-				'name' => 'a_copyrights',
-				'text' => ossn_print('copyright') . ' ' . ossn_site_settings('site_name'),
-				'href' => ossn_site_url()
-		));
-		
-		ossn_register_menu_item('footer', ossn_pow_lnk_args());
-		
-		ossn_extend_view('ossn/endpoint', 'author/view');
 		*/
+		chaudoudoux_add_hook('newsfeed', "sidebar:left", 'newfeed_menu_handler');
+
+		chaudoudoux_register_menu_item('footer', array(
+				'name' => 'a_copyrights',
+				'text' => chaudoudoux_print('copyright') . ' ' . chaudoudoux_site_settings('site_name'),
+				'href' => chaudoudoux_site_url()
+		));
+
+		//chaudoudoux_register_menu_item('footer', chaudoudoux_pow_lnk_args());
+
+		//chaudoudoux_extend_view('chaudoudoux/endpoint', 'author/view');
 }
 
 /**
@@ -77,7 +75,7 @@ function chaudoudoux_initialize() {
  * @return menu
  */
 function newfeed_menu_handler($hook, $type, $return) {
-		$return[] = ossn_view_sections_menu('newsfeed');
+		$return[] = chaudoudoux_view_sections_menu('newsfeed');
 		return $return;
 }
 
@@ -202,7 +200,7 @@ function chaudoudoux_index_pagehandler($index) {
  * 
  * @return array
  */
-function ossn_pow_lnk_args() {
+function chaudoudoux_pow_lnk_args() {
 		$pw  = base64_decode(OSSN_POW);
 		$pow = ossn_string_decrypt($pw, 'ossn');
 		$pow = trim($pow);
@@ -213,7 +211,7 @@ function ossn_pow_lnk_args() {
 		
 		return array(
 				'name' => $pow,
-				'text' => ossn_print($pow),
+				'text' => chaudoudoux_print($pow),
 				'href' => $lnk,
 				'priority' => 1000,
 		);
@@ -223,9 +221,9 @@ function ossn_pow_lnk_args() {
  *
  * @return void
  */
-function ossn_system_plugins_load() {
+function chaudoudoux_system_plugins_load() {
 		//load system plugins before components load #451
-		ossn_register_plugins_by_path(ossn_route()->system . 'plugins/');
+		chaudoudoux_register_plugins_by_path(chaudoudoux_route()->system . 'plugins/');
 }
 chaudoudoux_register_callback('chaudoudoux', 'init', 'chaudoudoux_initialize');
-chaudoudoux_register_callback('components', 'before:load', 'ossn_system_plugins_load');
+chaudoudoux_register_callback('components', 'before:load', 'chaudoudoux_system_plugins_load');

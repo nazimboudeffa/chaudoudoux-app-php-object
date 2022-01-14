@@ -25,8 +25,8 @@ $ChaudoudouxClasses = array(
 		//'Annotation',
 		//'Themes',
 		//'File',
-		//'Components',
-		//'Menu',
+		'Components',
+		'Menu',
 		//'System',
 		//'Image',
 );

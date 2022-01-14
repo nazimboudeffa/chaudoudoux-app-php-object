@@ -1,5 +1,8 @@
 <?php
 
+ini_set('display_errors', 'On');
+error_reporting(E_ALL | E_STRICT);
+
 define('OSSN_ALLOW_SYSTEM_START', TRUE);
 require_once('system/start.php');
 //page handler

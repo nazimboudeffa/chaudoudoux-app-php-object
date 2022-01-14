@@ -236,7 +236,7 @@ function chaudoudoux_site_settings($setting) {
 	global $Chaudoudoux;
 	if (isset($Chaudoudoux->siteSettings->$setting)) {
 		//allow to override a settings
-		//return chaudoudoux_call_hook('load:settings', $setting, false, $Chaudoudoux->siteSettings->$setting);
+		return chaudoudoux_call_hook('load:settings', $setting, false, $Chaudoudoux->siteSettings->$setting);
 	}
 	return false;
 }
@@ -277,7 +277,7 @@ function chaudoudoux_site_url($extend = '', $action = false) {
 	global $Chaudoudoux;
 	$siteurl = "{$Chaudoudoux->url}{$extend}";
 	if ($action === true) {
-		$siteurl = ossn_add_tokens_to_url($siteurl);
+		$siteurl = chaudoudoux_add_tokens_to_url($siteurl);
 	}
 	return $siteurl;
 }
