@@ -431,10 +431,10 @@ function chaudoudoux_get_available_languages() {
 		$codes = chaudoudoux_standard_language_codes();
 		$path  = chaudoudoux_route();
 		
-		$com_langs  = array();
+		//$com_langs  = array();
 		$core_langs = array();
 		
-		$components = new ChaudoudouxComponents;
+		//$components = new ChaudoudouxComponents;
 		
 		//load core framework languages
 		foreach($codes as $code) {
@@ -444,15 +444,18 @@ function chaudoudoux_get_available_languages() {
 				}
 		}
 		//load component languages
+		/*
 		$components = $components->getActive();
 		foreach($components as $component) {
 				foreach($codes as $code) {
-						$file = $path->components . '/' . $component->com_id . "/locale/ossn.{$code}.php";
+						$file = $path->components . '/' . $component->com_id . "/locale/chaudoudoux.{$code}.php";
 						if(is_file($file)) {
 								$com_langs[] = $code;
 						}
 				}
 		}
 		$langs = array_merge($com_langs, $core_langs);
+		*/
+		$langs = $core_langs;
 		return array_unique($langs);
 }

@@ -10,14 +10,14 @@
  */
 
 //register all available language
-/*
+
 $available_languages = chaudoudoux_get_available_languages();
 foreach($available_languages as $language) {
 		chaudoudoux_register_language($language, chaudoudoux_route()->locale . "chaudoudoux.{$language}.php");
 }
 
-chaudoudoux_default_load_locales();
-*/
+//chaudoudoux_default_load_locales();
+
 /**
  * Initialize the css library
  *
