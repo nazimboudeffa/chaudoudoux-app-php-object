@@ -1,6 +1,6 @@
 <?php
 
-if(!defined("OSSN_ALLOW_SYSTEM_START")){
+if(!defined("CHAUDOUDOUX_ALLOW_SYSTEM_START")){
 	header("HTTP/1.0 404 Not Found");	
 	exit;
 }
@@ -16,7 +16,7 @@ if (!is_file(chaudoudoux_route()->configs . 'chaudoudoux.config.site.php') && !i
 	header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 	header("Cache-Control: post-check=0, pre-check=0", false);
 	header("Pragma: no-cache");
-    header("Location: installation");
+    header("Location: install");
 	exit;
 }
 
@@ -33,5 +33,3 @@ foreach ($Chaudoudoux->libraries as $lib) {
         throw new exception('Cannot include all libraries');
     }
 }
-
-chaudoudoux_trigger_callback('chaudoudoux', 'init');

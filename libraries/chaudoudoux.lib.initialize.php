@@ -10,13 +10,14 @@
  */
 
 //register all available language
-
+/*
 $available_languages = chaudoudoux_get_available_languages();
 foreach($available_languages as $language) {
 		chaudoudoux_register_language($language, chaudoudoux_route()->locale . "chaudoudoux.{$language}.php");
 }
 
 chaudoudoux_default_load_locales();
+*/
 /**
  * Initialize the css library
  *
@@ -25,7 +26,9 @@ chaudoudoux_default_load_locales();
 function chaudoudoux_initialize() {
 		$url = chaudoudoux_site_url();
 		
-		$icon = chaudoudoux_site_url('components/ChaudoudouxWall/images/news-feed.png');
+		//$icon = chaudoudoux_site_url('themes/licorne/images/icon.png');
+		
+		/*
 		chaudoudoux_register_sections_menu('newsfeed', array(
 				'name' => 'newsfeed',
 				'text' => chaudoudoux_print('news:feed'),
@@ -33,7 +36,7 @@ function chaudoudoux_initialize() {
 				'parent' => 'links',
 				'icon' => $icon
 		));
-		/*
+		
 		ossn_extend_view('ossn/js/head', 'javascripts/head');
 		ossn_extend_view('ossn/admin/js/head', 'javascripts/head');
 		//actions
@@ -55,7 +58,7 @@ function chaudoudoux_initialize() {
 		ossn_register_page('syserror', 'ossn_system_error_pagehandler');
 		
 		ossn_register_page('resetlogin', 'ossn_user_pagehandler');
-		*/
+		
 		chaudoudoux_add_hook('newsfeed', "sidebar:left", 'newfeed_menu_handler');
 
 		chaudoudoux_register_menu_item('footer', array(
@@ -63,10 +66,11 @@ function chaudoudoux_initialize() {
 				'text' => chaudoudoux_print('copyright') . ' ' . chaudoudoux_site_settings('site_name'),
 				'href' => chaudoudoux_site_url()
 		));
+		
+		chaudoudoux_register_menu_item('footer', chaudoudoux_pow_lnk_args());
 
-		//chaudoudoux_register_menu_item('footer', chaudoudoux_pow_lnk_args());
-
-		//chaudoudoux_extend_view('chaudoudoux/endpoint', 'author/view');
+		chaudoudoux_extend_view('chaudoudoux/endpoint', 'author/view');
+		*/
 }
 
 /**
@@ -226,4 +230,3 @@ function chaudoudoux_system_plugins_load() {
 		chaudoudoux_register_plugins_by_path(chaudoudoux_route()->system . 'plugins/');
 }
 chaudoudoux_register_callback('chaudoudoux', 'init', 'chaudoudoux_initialize');
-chaudoudoux_register_callback('components', 'before:load', 'chaudoudoux_system_plugins_load');

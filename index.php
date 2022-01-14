@@ -1,10 +1,10 @@
 <?php
-
 ini_set('display_errors', 'On');
 error_reporting(E_ALL | E_STRICT);
 
-define('OSSN_ALLOW_SYSTEM_START', TRUE);
+define('CHAUDOUDOUX_ALLOW_SYSTEM_START', TRUE);
 require_once('system/start.php');
+
 //page handler
 $handler = input('h');
 //page name
@@ -14,4 +14,5 @@ $page = input('p');
 if (empty($handler)) {
     $handler = 'index';
 }
+
 echo chaudoudoux_load_page($handler, $page);

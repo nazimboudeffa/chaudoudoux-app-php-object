@@ -47,11 +47,26 @@ function chaudoudoux_route() {
             'forms' => "$root/forms/",
             'upgrade' => "$root/upgrade/",
             'cache' => "{$root}/cache/",
-            'js' => "$root/javascripts/",
+            'js' => "$root/js/",
             'system' => "$root/system/",
             'components' => "$root/components"
     );
     return arrayObject($defaults);
+}
+
+/**
+ * Force Object
+ * Sometimes php can't get object class ,
+ * so we need to make sure that object have class name
+ *
+ * @param object $object Object
+ *
+ * @return object
+ */
+function forceObject(&$object) {
+        if(!is_object($object) && gettype($object) == 'object')
+                        return ($object = unserialize(serialize($object)));
+        return $object;
 }
 
 /**
@@ -87,18 +102,18 @@ function chaudoudoux_autoload_classes($name = '') {
 }
 
 /**
- * Force Object
- * Sometimes php can't get object class ,
- * so we need to make sure that object have class name
- *
- * @param object $object Object
- *
- * @return object
+ * Unregister a class 
+ * Unregistering the system classes may result in strange behaviour 
+ * 
+ * @param array $classes A classes list with the path
+ * 
+ * @return void
  */
-function forceObject(&$object) {
-        if(!is_object($object) && gettype($object) == 'object')
-                        return ($object = unserialize(serialize($object)));
-        return $object;
+function chaudoudoux_unregister_class($name = ''){
+        global $Chaudoudoux;
+        if(isset($Chaudoudoux->classes[$name])) {
+                        unset($Chaudoudoux->classes[$name]);
+        }	
 }
 
 spl_autoload_register('chaudoudoux_autoload_classes');

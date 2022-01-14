@@ -63,13 +63,13 @@ function chaudoudoux_load_page($handler, $page) {
             //supply params to hook
             $params['page']    = $page;
             $params['handler'] = $handler;
-
+            
             //[E] Allow to override page handler existing pages #1746
-            $halt_view = chaudoudoux_call_hook('page', 'override:view', $params, false);
+            $halt_view = false; //chaudoudoux_call_hook('page', 'override:view', $params, false);
             if($halt_view === false) {
                     //get page contents
                     ob_start();
-                    call_user_func($Chaudoudoux->page[$handler], $page, $handler);
+                    call_user_func($Chaudoudoux->page[$handler], $page, $handler);var_dump($Chaudoudoux->page[$handler]);
                     $contents = ob_get_clean();
             }
             if($halt_view) {

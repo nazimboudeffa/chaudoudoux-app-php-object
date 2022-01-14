@@ -194,7 +194,7 @@ function chaudoudoux_error_page() {
 	if (chaudoudoux_is_xhr()) {
 		header("HTTP/1.0 404 Not Found");
 	} else {
-		$title                  = chaudoudoux_print('page:error');
+		$title                  = 'page:error';//chaudoudoux_print('page:error');
 		$contents['content']    = chaudoudoux_plugin_view('pages/contents/error');
 		$contents['background'] = false;
 		$content                = chaudoudoux_set_page_layout('contents', $contents);
