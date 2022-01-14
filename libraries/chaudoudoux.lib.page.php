@@ -69,7 +69,7 @@ function chaudoudoux_load_page($handler, $page) {
             if($halt_view === false) {
                     //get page contents
                     ob_start();
-                    call_user_func($Chaudoudoux->page[$handler], $page, $handler);var_dump($Chaudoudoux->page[$handler]);
+                    call_user_func($Chaudoudoux->page[$handler], $page, $handler);
                     $contents = ob_get_clean();
             }
             if($halt_view) {

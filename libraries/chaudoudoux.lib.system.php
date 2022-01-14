@@ -195,8 +195,8 @@ function chaudoudoux_error_page() {
 		header("HTTP/1.0 404 Not Found");
 	} else {
 		$title                  = 'page:error';//chaudoudoux_print('page:error');
-		$contents['content']    = chaudoudoux_plugin_view('pages/contents/error');
-		$contents['background'] = false;
+		//$contents['content']    = chaudoudoux_plugin_view('pages/contents/error');
+		//$contents['background'] = false;
 		$content                = chaudoudoux_set_page_layout('contents', $contents);
 		$data                   = chaudoudoux_view_page($title, $content);
 		echo $data;
@@ -294,6 +294,6 @@ function chaudoudoux_get_userdata($extend = '') {
 	return "{$Chaudoudoux->userdata}{$extend}";
 }
 
-chaudoudoux_errros();
-chaudoudoux_register_callback('chaudoudoux', 'init', 'chaudoudoux_offset_validate');
+//chaudoudoux_errros();
+//chaudoudoux_register_callback('chaudoudoux', 'init', 'chaudoudoux_offset_validate');
 //chaudoudoux_register_callback('chaudoudoux', 'init', 'chaudoudoux_system');

@@ -230,3 +230,4 @@ function chaudoudoux_system_plugins_load() {
 		chaudoudoux_register_plugins_by_path(chaudoudoux_route()->system . 'plugins/');
 }
 chaudoudoux_register_callback('chaudoudoux', 'init', 'chaudoudoux_initialize');
+chaudoudoux_register_callback('chaudoudoux', 'init', 'chaudoudoux_system_plugins_load');

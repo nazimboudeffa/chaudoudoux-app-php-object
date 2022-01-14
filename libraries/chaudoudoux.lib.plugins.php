@@ -95,4 +95,3 @@ function chaudoudoux_plugin_set() {
 			$Chaudoudoux->plugins = $paths;
 	}
 }
-chaudoudoux_plugin_set();

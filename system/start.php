@@ -33,3 +33,5 @@ foreach ($Chaudoudoux->libraries as $lib) {
         throw new exception('Cannot include all libraries');
     }
 }
+
+chaudoudoux_trigger_callback('chaudoudoux', 'init');

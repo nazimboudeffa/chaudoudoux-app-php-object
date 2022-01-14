@@ -490,6 +490,6 @@ function ossn_get_admin_users() {
 		}
 		return false;
 }
-chaudoudoux_register_callback('chaudoudoux', 'init', 'chaudoudoux_users');
-chaudoudoux_add_hook('load:settings', 'language', 'chaudoudoux_site_user_lang_code');
-chaudoudoux_add_hook('user', 'default:fields','chaudoudoux_user_fields_set_nonrequired', 201);
+//chaudoudoux_register_callback('chaudoudoux', 'init', 'chaudoudoux_users');
+//chaudoudoux_add_hook('load:settings', 'language', 'chaudoudoux_site_user_lang_code');
+//chaudoudoux_add_hook('user', 'default:fields','chaudoudoux_user_fields_set_nonrequired', 201);
