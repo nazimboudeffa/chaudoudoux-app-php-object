@@ -121,7 +121,7 @@ function chaudoudoux_user_pagehandler($home, $handler) {
 								redirect('login');
 						}
 						$title = chaudoudoux_print('news:feed');
-						if(com_is_active('OssnWall')) {
+						if(com_is_active('ChaudoudouxWall')) {
 								$contents['content'] = chaudoudoux_plugin_view('wall/pages/wall');
 						}
 						$content = chaudoudoux_set_page_layout('newsfeed', $contents);
