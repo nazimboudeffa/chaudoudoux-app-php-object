@@ -12,7 +12,7 @@
 $Chaudoudoux->libraries = array(
 	//'cli',
 	//'cron',
-	//'actions',
+	'actions',
 	'input',
 	'languages',
 	//'relations',

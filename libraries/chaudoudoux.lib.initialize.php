@@ -39,11 +39,12 @@ function chaudoudoux_initialize() {
 		
 		ossn_extend_view('ossn/js/head', 'javascripts/head');
 		ossn_extend_view('ossn/admin/js/head', 'javascripts/head');
+		*/
 		//actions
-		ossn_register_action('user/login', ossn_route()->actions . 'user/login.php');
-		ossn_register_action('user/register', ossn_route()->actions . 'user/register.php');
-		ossn_register_action('user/logout', ossn_route()->actions . 'user/logout.php');
-		
+		chaudoudoux_register_action('user/login', chaudoudoux_route()->actions . 'user/login.php');
+		chaudoudoux_register_action('user/register', chaudoudoux_route()->actions . 'user/register.php');
+		chaudoudoux_register_action('user/logout', chaudoudoux_route()->actions . 'user/logout.php');
+		/*
 		ossn_register_action('friend/add', ossn_route()->actions . 'friend/add.php');
 		ossn_register_action('friend/remove', ossn_route()->actions . 'friend/remove.php');
 		ossn_register_action('resetpassword', ossn_route()->actions . 'user/resetpassword.php');
@@ -52,6 +53,7 @@ function chaudoudoux_initialize() {
 
 		chaudoudoux_register_page('index', 'chaudoudoux_index_pagehandler');	
 		chaudoudoux_register_page('home', 'chaudoudoux_user_pagehandler');
+
 		/*
 		ossn_register_page('login', 'ossn_user_pagehandler');
 		ossn_register_page('registered', 'ossn_user_pagehandler');
@@ -109,17 +111,22 @@ function ossn_system_error_pagehandler($pages) {
  */
 function chaudoudoux_user_pagehandler($home, $handler) {
 		switch($handler) {
+			/*
 				case 'home':
 						if(!chaudoudoux_isLoggedin()) {
 								//Redirect User to login page if session expired from home page #929
 								redirect('login');
 						}
-						$title = chaudoudoux_print('news:feed');
-						if(com_is_active('OssnWall')) {
-								$contents['content'] = chaudoudoux_plugin_view('wall/pages/wall');
-						}
-						$content = chaudoudoux_set_page_layout('newsfeed', $contents);
+						$title = chaudoudoux_print('site:home');
+						//if(com_is_active('OssnWall')) {
+								$contents['content'] = chaudoudoux_plugin_view('pages/home');
+						//}
+						$content = chaudoudoux_set_page_layout('home', $contents);
 						echo chaudoudoux_view_page($title, $content);
+						break;
+			*/
+				case 'home':
+						echo chaudoudoux_plugin_view('pages/home');
 						break;
 				case 'resetlogin':
 						if(ossn_isLoggedin()) {
